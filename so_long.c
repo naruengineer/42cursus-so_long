@@ -6,13 +6,14 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:08:29 by nando             #+#    #+#             */
-/*   Updated: 2025/04/15 19:30:29 by nando            ###   ########.fr       */
+/*   Updated: 2025/04/16 19:19:16 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minilibx/mlx.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 //#include "./create_trgb/create_trgb.c"
 
 typedef struct s_data
@@ -29,6 +30,7 @@ typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
+	int 	keycode;
 } t_vars;
 
 void my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -132,10 +134,50 @@ void create_checker_board(t_data *data, int image_width, int image_height)
     }
 }
 
-int close_window(int keycode, t_vars *vars)
+int close_window(t_vars *vars)
 {
+	printf("Good Bye!\n");
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);
+	return 0;
+}
+
+int handle_resize(void *param)
+{
+	(void )param;
+	printf("window resize!\n");
+	return 0;
+}
+
+int handle_key_down(int press_keycode, t_vars *vars)
+{
+	if(press_keycode == 65307)
+	{
+		printf("Press ESC key. Destroy window.\nGood Bye!\n");
+		mlx_destroy_window(vars->mlx, vars->win);
+		exit(0);
+		return 0;
+	}
+	vars->keycode = press_keycode;
+	printf("Press key %d\n", press_keycode);
+	return (0);
+}
+
+int handle_mouse_enter(t_vars *vars)
+{
+	printf("mouse in\n");
+	return 0;
+}
+
+int handle_mouse_leave(t_vars *vars)
+{
+	printf("mouse out\n");
+	return 0;
+}
+
+int key_print(int keycode, t_vars *vars)
+{
+	printf("key code is %d\n", keycode);
 	return 0;
 }
 
@@ -152,7 +194,12 @@ int	main(void)
 	//draw_line(&img, 50, 100, 500, 0x00FF0000);
 	//draw_line(&img, 50, 150, 500, 0x000000FF);
 	//draw_circle(&img, 300, 300, 50, 0x00FF0000);
-	mlx_hook(vars.win, 2, 1L<<0, close_window, &vars);
+	mlx_hook(vars.win, 17, 0, close_window, &vars);
+	mlx_hook(vars.win, 2, 1L<<0, handle_key_down, &vars);
+	mlx_hook(vars.win, 22, 1L<<17, handle_resize, &vars);
+	mlx_hook(vars.win, 7, 1L<<4, handle_mouse_enter,&vars);
+	mlx_hook(vars.win, 8, 1L<<5, handle_mouse_leave,&vars);
+	mlx_key_hook(vars.win, key_print, &vars);
 	create_checker_board(&img, 960, 540);
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_loop(vars.mlx);
