@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 18:38:36 by nando             #+#    #+#             */
-/*   Updated: 2025/04/15 18:39:14 by nando            ###   ########.fr       */
+/*   Created: 2024/12/05 09:16:33 by nando             #+#    #+#             */
+/*   Updated: 2024/12/11 15:28:02 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H 
-#define SO_LONG_H
+#include "libft.h"
 
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*mem;
 
-
-#endif 
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	if (nmemb > __SIZE_MAX__ / size)
+		return (NULL);
+	mem = malloc(nmemb * size);
+	if (mem == NULL)
+		return (NULL);
+	ft_memset(mem, 0, nmemb * size);
+	return (mem);
+}
