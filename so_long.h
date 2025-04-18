@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 21:27:50 by nando             #+#    #+#             */
-/*   Updated: 2025/04/18 21:28:22 by nando            ###   ########.fr       */
+/*   Updated: 2025/04/18 21:43:07 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
+# include <stdio.h>
+
 
 #endif

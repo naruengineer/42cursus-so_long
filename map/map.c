@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 18:56:45 by nando             #+#    #+#             */
-/*   Updated: 2025/04/18 21:52:43 by nando            ###   ########.fr       */
+/*   Created: 2025/04/18 21:34:41 by nando             #+#    #+#             */
+/*   Updated: 2025/04/18 21:56:05 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx-linux/mlx.h"
-#include "so_long.h"
+#include "../so_long.h"
 
-int main(int argc, char **argv)
+char **load_map(char *filename)
 {
 	int fd;
-
-	fd = open(argv[1], O_RDONLY);
+	char *line;
+	char **map;
+	size_t count;
+	
+	map = NULL;
+	count = 0;
+	fd = open(filename, O_RDONLY);
 	if(fd < 0)
 	{
-		peeror("Error\nopen failed");
+		perror("Error\nfile open failed.\n");
 		exit(EXIT_FAILURE);
 	}
+	while()
 }
-

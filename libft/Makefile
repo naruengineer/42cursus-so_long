@@ -11,7 +11,8 @@ SRCS = \
        srcs/ft_putendl_fd.c srcs/ft_putnbr_fd.c \
        srcs/conversions/ft_put_char.c srcs/conversions/ft_put_deci.c srcs/conversions/ft_put_hexa_lower.c \
        srcs/conversions/ft_put_hexa_upper.c srcs/conversions/ft_put_int.c srcs/conversions/ft_put_per.c \
-       srcs/conversions/ft_put_ptr.c srcs/conversions/ft_put_str.c srcs/conversions/ft_put_unsigned.c
+       srcs/conversions/ft_put_ptr.c srcs/conversions/ft_put_str.c srcs/conversions/ft_put_unsigned.c \
+	   srcs/get_next_line.c srcs/get_next_line_utils.c
 
 INCLUDES = -I includes
 
