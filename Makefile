@@ -6,21 +6,29 @@
 #    By: nando <nando@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 21:17:18 by nando             #+#    #+#              #
-#    Updated: 2025/04/18 21:27:16 by nando            ###   ########.fr        #
+#    Updated: 2025/05/02 14:18:27 by nando            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-CC = cc
+CC = cc -g3
 CFLAGS = -Wall -Wextra -Werror
 
-LIBFT   = libft/libft.a
+LIBFT = libft/libft.a
 
-SRCS =  
-		
+# MLX = minilibx-Linux
+# MLX_FLAGS = -Lminilibx -lmlx -lXext -lX11 -lm
 
-OBJS        = $(SRCS:.c=.o)
+SRCS =  \
+		main/main.c \
+		map/check_contents.c \
+		map/free_map_and_exit.c \
+		map/load_map.c \
+		map/path_exists.c \
+		map/validate_map.c
+
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 

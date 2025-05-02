@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_map_and_exit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 14:24:01 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 16:09:17 by nando            ###   ########.fr       */
+/*   Created: 2025/05/01 16:20:12 by nando             #+#    #+#             */
+/*   Updated: 2025/05/02 14:52:51 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	print_map(char **map)
+void	free_map_and_exit(char **map, char *error_script)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (map[i])
+	if (map)
 	{
-		j = 0;
-		while (map[i][j])
-		{
-			write(1, &map[i][j], 1);
-			j++;
-		}
-		write(1, "\n", 1);
-		i++;
+		while (map[i])
+			free(map[i++]);
+		free(map);
 	}
-}
-
-int	main(int argc, char **argv)
-{
-	char	**map;
-	char	*filename;
-
-	(void)argc;
-	map = load_map(argv[1]);
-	validate_map(map);
-	free_map_and_exit(map, "The map loaded fine.\n");
-	return (0);
+	ft_printf(error_script);
+	exit(EXIT_FAILURE);
 }
