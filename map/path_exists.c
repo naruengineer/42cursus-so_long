@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 16:37:34 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 14:15:31 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/03 15:22:49 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,21 @@ static void	running_dfs(int row, int column, t_dfs *dfs)
 	running_dfs(row, column - 1, dfs);
 }
 
-int	path_exists(t_mapinfo *mapinfo)
+int	path_exists(t_mapinfo *mapinfo, t_dfs *dfs)
 {
 	int		start_row;
 	int		start_column;
-	t_dfs	dfs;
 
 	find_start(mapinfo, &start_row, &start_column);
 	if (start_row < 0 || start_column < 0)
 		return (NG);
-	init_dfs(&dfs, mapinfo);
-	running_dfs(start_row, start_column, &dfs);
-	if (dfs.found_e == 1 && dfs.found_c == dfs.total_c)
+	init_dfs(dfs, mapinfo);
+	running_dfs(start_row, start_column, dfs);
+	if (dfs->found_e == 1 && dfs->found_c == dfs->total_c)
 	{
-		free(dfs.visited);
+		free(dfs->visited);
 		return (OK);
 	}
-	free(dfs.visited);
+	free(dfs->visited);
 	return (NG);
 }

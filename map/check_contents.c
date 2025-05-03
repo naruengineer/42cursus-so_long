@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 16:21:42 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 14:36:08 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/02 16:16:08 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	check_wall(const t_mapinfo *info)
 	i = 0;
 	m_height = info->height;
 	m_width = info->width;
-	// print_map(map);
 	while (i < m_width)
 	{
 		if (map[0][i] != '1' || map[m_height - 1][i] != '1')

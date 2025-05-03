@@ -6,30 +6,11 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 23:41:36 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 16:00:41 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/02 16:19:01 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-static void	check_file_format(char *filename)
-{
-	int	filename_len;
-	int	result;
-
-	filename_len = ft_strlen(filename);
-	if (filename_len < 4)
-	{
-		ft_putstr_fd("Error: Invalid file extension.\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	result = ft_strncmp(filename + filename_len - 4, ".ber", 4);
-	if (result != 0)
-	{
-		ft_putstr_fd("Error: Invalid file extension.\n", 2);
-		exit(EXIT_FAILURE);
-	}
-}
 
 static int	count_line(const char *filename)
 {
@@ -78,7 +59,7 @@ char	**load_map(const char *filename)
 	int		i;
 
 	i = 0;
-	check_file_format(filename);
+	
 	line_count = count_line(filename);
 	map = malloc(sizeof(char *) * (line_count + 1));
 	if (!map)

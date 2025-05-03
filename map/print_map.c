@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_map_and_exit.c                                :+:      :+:    :+:   */
+/*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 16:20:12 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 14:52:51 by nando            ###   ########.fr       */
+/*   Created: 2025/05/02 16:30:04 by nando             #+#    #+#             */
+/*   Updated: 2025/05/02 16:32:17 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	free_map_and_exit(char **map, char *error_script)
+void	print_map(char **map)
 {
-	int	i;
+	int i;
+	int j;
 
 	i = 0;
-	if (map)
+	ft_printf("[print_map]\n");
+	while (map[i])
 	{
-		while (map[i])
-			free(map[i++]);
-		free(map);
+		j = 0;
+		while (map[i][j])
+		{
+			write(1, &map[i][j], 1);
+			j++;
+		}
+		write(1, "\n", 1);
+		i++;
 	}
-	ft_printf(error_script);
-	exit(EXIT_FAILURE);
+	write(1, "\n", 1);
 }

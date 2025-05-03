@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 21:27:50 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 16:04:56 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/03 17:40:05 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@
 #  define NG 0
 # endif
 
+# define ESC_KEY 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_UP 65362
+# define KEY_LEFT 65361
+# define KEY_DOWN 65364
+# define KEY_RIGHT 65363
+
+# include "./minilibx-Linux/mlx.h"
 # include "libft/includes/ft_printf.h"
 # include "libft/includes/get_next_line.h"
 # include "libft/includes/libft.h"
@@ -57,6 +68,12 @@ typedef struct s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	void		*player;
+	void		*start;
+	void		*goal;
+	void		*collectable;
+	void		*wall;
+	void		*floor;
 }				t_data;
 
 typedef struct s_game
@@ -65,18 +82,28 @@ typedef struct s_game
 	void		*win;
 	t_data		img;
 	char		**map;
+	int			collected;
+	int			total_collect;
+	int			player_x;
+	int			player_y;
 	int			height;
 	int			width;
+	int			count_move;
 }				t_game;
 
 int				main(int argc, char **argv);
 void			free_map_and_exit(char **map, char *error_script);
+void			free_images(t_game *g);
+void			free_map(char **map);
 void			print_map(char **map);
 char			**load_map(const char *filename);
-void			validate_map(char **map);
+void			validate_map(char **map, t_mapinfo *info, t_dfs *dfs);
 int				check_charset(const t_mapinfo *info);
 int				check_char_counts(const t_mapinfo *info);
 int				check_wall(const t_mapinfo *info);
-int				path_exists(t_mapinfo *mapinfo);
+int				path_exists(t_mapinfo *mapinfo, t_dfs *dfs);
+void			init_game(t_game *g, t_mapinfo *info, t_dfs *dfs);
+void			running_game(t_game *g);
+void			draw_map(t_game *g);
 
 #endif
