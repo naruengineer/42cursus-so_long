@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 21:27:50 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 17:40:05 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/03 19:24:57 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int				main(int argc, char **argv);
 void			free_map_and_exit(char **map, char *error_script);
 void			free_images(t_game *g);
 void			free_map(char **map);
+int				close_window(t_game *g);
 void			print_map(char **map);
 char			**load_map(const char *filename);
 void			validate_map(char **map, t_mapinfo *info, t_dfs *dfs);
@@ -104,6 +105,7 @@ int				check_wall(const t_mapinfo *info);
 int				path_exists(t_mapinfo *mapinfo, t_dfs *dfs);
 void			init_game(t_game *g, t_mapinfo *info, t_dfs *dfs);
 void			running_game(t_game *g);
+int				handle_press_key(int keycode, t_game *g);
 void			draw_map(t_game *g);
 
 #endif

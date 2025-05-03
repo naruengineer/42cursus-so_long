@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 23:41:36 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 16:19:01 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/03 19:36:04 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	**load_map(const char *filename)
 	int		i;
 
 	i = 0;
-	
 	line_count = count_line(filename);
 	map = malloc(sizeof(char *) * (line_count + 1));
 	if (!map)

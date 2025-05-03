@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:12:06 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 16:28:58 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/03 19:24:02 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ static void	draw_wall_floor(t_game *g)
 	}
 }
 
-static void
-
-draw_materials(t_game *g)
+static void	draw_materials(t_game *g)
 {
 	int	x;
 	int	y;

@@ -6,7 +6,7 @@
 #    By: nando <nando@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 21:17:18 by nando             #+#    #+#              #
-#    Updated: 2025/05/03 17:16:18 by nando            ###   ########.fr        #
+#    Updated: 2025/05/03 19:26:54 by nando            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,11 @@ SRCS =  \
 		map/path_exists.c \
 		map/print_map.c \
 		map/validate_map.c \
-		game/running_game.c \
-		game/init_game.c \
 		game/draw_map.c \
+		game/handle_key.c \
+		game/init_game.c \
+		game/running_game.c \
+		utils/close_window.c \
 		utils/free.c 
 
 OBJS = $(SRCS:.c=.o)

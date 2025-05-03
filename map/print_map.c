@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:04 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 16:32:17 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/03 19:36:13 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	print_map(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	ft_printf("[print_map]\n");
