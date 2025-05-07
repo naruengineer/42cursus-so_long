@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 14:31:18 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 17:17:28 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/07 15:31:58 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,21 @@ static int	is_rectangular(char **map)
 	return (OK);
 }
 
-void	validate_map(char **map, t_mapinfo *info, t_dfs *dfs)
+void	validate_map(t_game *game)
 {
-	if (is_rectangular(map) == NG)
-		free_map_and_exit(map, "Error : map is not rectangular\n");
-	info->map = map;
-	info->height = 0;
-	while (map[info->height])
-		info->height++;
-	info->width = ft_strlen(map[0]);
-	if (check_charset(info) == NG)
-		free_map_and_exit(map, "Error: map contains invalid characters\n");
-	if (check_char_counts(info) == NG)
-		free_map_and_exit(map, "Error: must have 1 = P, 1 = E, 1 <= C\n");
-	if (check_wall(info) == NG)
-		free_map_and_exit(map, "Error: map must be surrounded by walls\n");
-	if (path_exists(info, dfs) == NG)
-		free_map_and_exit(map,
+	if (is_rectangular(game->map) == NG)
+		free_map_and_exit(game->map, "Error : map is not rectangular\n");
+	game->height = 0;
+	while (game->map[game->height])
+		game->height++;
+	game->width = ft_strlen(game->map[0]);
+	if (check_charset(game) == NG)
+		free_map_and_exit(game->map, "Error: map contains invalid characters\n");
+	if (check_char_counts(game) == NG)
+		free_map_and_exit(game->map, "Error: must have 1 = P, 1 = E, 1 <= C\n");
+	if (check_wall(game) == NG)
+		free_map_and_exit(game->map, "Error: map must be surrounded by walls\n");
+	if (path_exists(game) == NG)
+		free_map_and_exit(game->map,
 			"Error: no valid path for collectibles and exit\n");
 }

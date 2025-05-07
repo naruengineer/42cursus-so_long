@@ -6,7 +6,7 @@
 #    By: nando <nando@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 21:17:18 by nando             #+#    #+#              #
-#    Updated: 2025/05/03 19:26:54 by nando            ###   ########.fr        #
+#    Updated: 2025/05/07 16:44:43 by nando            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = libft/libft.a
 
-MLX_DIR = minilibx-Linux
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+MLX_FLAGS = -L minilibx-Linux -lmlx -lXext -lX11 -lm
 
 SRCS =  \
 		main/main.c \
@@ -29,6 +28,7 @@ SRCS =  \
 		map/validate_map.c \
 		game/draw_map.c \
 		game/handle_key.c \
+		game/handle_expose.c \
 		game/init_game.c \
 		game/running_game.c \
 		utils/close_window.c \

@@ -6,13 +6,13 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 23:41:36 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 19:36:04 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/07 15:04:08 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-static int	count_line(const char *filename)
+static int	count_line(char *filename)
 {
 	int		fd;
 	int		count;
@@ -51,7 +51,7 @@ static void	remove_line_break(char **map)
 	}
 }
 
-char	**load_map(const char *filename)
+char	**load_map(char *filename)
 {
 	int		line_count;
 	char	**map;

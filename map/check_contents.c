@@ -6,20 +6,20 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 16:21:42 by nando             #+#    #+#             */
-/*   Updated: 2025/05/02 16:16:08 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/07 15:03:58 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	check_charset(const t_mapinfo *info)
+int	check_charset(t_game *game)
 {
 	char	**map;
 	int		i;
 	int		j;
 	char	c;
 
-	map = info->map;
+	map = game->map;
 	if (map == NULL || map[0] == NULL)
 		return (NG);
 	i = 0;
@@ -60,14 +60,14 @@ static int	count_in_map(char **map, char target)
 	return (count);
 }
 
-int	check_char_counts(const t_mapinfo *info)
+int	check_char_counts(t_game *game)
 {
 	char	**map;
 	int		p_count;
 	int		e_count;
 	int		c_count;
 
-	map = info->map;
+	map = game->map;
 	if (map == NULL || map[0] == NULL)
 		return (NG);
 	p_count = count_in_map(map, 'P');
@@ -78,17 +78,17 @@ int	check_char_counts(const t_mapinfo *info)
 	return (NG);
 }
 
-int	check_wall(const t_mapinfo *info)
+int	check_wall(t_game *game)
 {
 	char	**map;
 	int		m_height;
 	int		m_width;
 	int		i;
 
-	map = info->map;
+	map = game->map;
 	i = 0;
-	m_height = info->height;
-	m_width = info->width;
+	m_height = game->height;
+	m_width = game->width;
 	while (i < m_width)
 	{
 		if (map[0][i] != '1' || map[m_height - 1][i] != '1')

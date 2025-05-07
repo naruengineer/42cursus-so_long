@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 19:25:26 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 19:35:33 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/07 16:29:58 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,15 @@ static void	get_delta(int keycode, int *dx, int *dy)
 static void	get_collectable(t_game *g, int new_x, int new_y)
 {
 	g->collected++;
+	ft_printf("Yay, you got a bone!\n");
 	if (g->collected == g->total_collect)
-		ft_printf("let's go home!\n");
-	else
-		ft_printf("You still need to get %d bones.\n", g->total_collect
-			- g->collected);
+		ft_printf("Now you have all the bones. Let's go home.\n");
 	g->map[new_y][new_x] = '0';
 }
 
 static void	get_goal(t_game *g)
 {
-	ft_printf("game clear!!!\n");
+	ft_printf("You’re finally home!!!\nThank you for completing this adventure.\n");
 	close_window(g);
 }
 
@@ -49,7 +47,6 @@ static void	update_tiles(t_game *g, int new_x, int new_y)
 	g->player_x = new_x;
 	g->player_y = new_y;
 	g->map[g->player_y][g->player_x] = 'P';
-	ft_printf("[move : %d]\n", g->count_move);
 }
 
 int	handle_press_key(int keycode, t_game *g)
@@ -69,6 +66,7 @@ int	handle_press_key(int keycode, t_game *g)
 	if (cell == '1' || (cell == 'E' && g->collected != g->total_collect))
 		return (0);
 	g->count_move++;
+	ft_printf("[move : %d]\n", g->count_move);
 	if (cell == 'C')
 		get_collectable(g, new_x, new_y);
 	else if (cell == 'E' && g->collected == g->total_collect)

@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 14:24:01 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 18:45:17 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/07 16:28:53 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,34 @@ static void	check_file_format(char *filename)
 		file_format_error();
 }
 
-static void	print_game_system(t_game *g)
+static void	print_intro(void)
 {
-	ft_printf("\nYou are a pretty dog.\nCollect all the bones and go home!\n");
-	ft_printf("It looks like there are %d bones.\n", g->total_collect);
-	ft_printf("Please press [WSAD] or [Arrow keys].\n\n");
+	ft_printf(
+		" _     ___  ____ _____   ____   ___   ____\n"
+		"| |   / _ \\/ ___|_   _| |  _ \\ / _ \\ / ___|\n"
+		"| |  | | | \\___ \\ | |   | | | | | | | |  _\n" 
+		"| |__| |_| |___) || |   | |_| | |_| | |_| |\n"
+		"|_____\\___/|____/ |_|   |____/ \\___/ \\____|\n"
+	);
+	ft_printf("\n  * Woof! Woof! *\n\n");
+	ft_printf("  Welcome, Lost dog adventurer!\n\n");
+	ft_printf("");
+	ft_printf("  Your mission:  Collect all the bones and return HOME.\n");
+	ft_printf("  Controls    :  [W] / [↑] : Move Up\n                 [A] / [←] : Move Left\n                 [S] / [↓] : Move Down\n                 [D] / [→] : Move Right\n                 [ESC]     : Quit\n\n"
+	);
 }
 
 int	main(int argc, char **argv)
 {
-	char		**map;
-	t_mapinfo	info;
 	t_game		game;
-	t_dfs		dfs;
 
 	if (argc != 2)
 		return (0);
 	check_file_format(argv[1]);
-	map = load_map(argv[1]);
-	validate_map(map, &info, &dfs);
-	init_game(&game, &info, &dfs);
-	print_game_system(&game);
+	game.map = load_map(argv[1]);
+	validate_map(&game);
+	print_intro();
+	init_game(&game);
 	running_game(&game);
 	return (0);
 }

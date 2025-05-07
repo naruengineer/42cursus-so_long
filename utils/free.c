@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 17:15:23 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 17:54:08 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/07 15:22:41 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,16 @@ void	free_map(char **map)
 	}
 }
 
-void	free_images(t_game *g)
+void			free_mlx(t_game *g)
 {
-	mlx_destroy_image(g->mlx, g->img.player);
-	mlx_destroy_image(g->mlx, g->img.start);
-	mlx_destroy_image(g->mlx, g->img.goal);
-	mlx_destroy_image(g->mlx, g->img.collectable);
-	mlx_destroy_image(g->mlx, g->img.wall);
-	mlx_destroy_image(g->mlx, g->img.floor);
+	mlx_destroy_image(g->mlx,g->img.player);
+	mlx_destroy_image(g->mlx,g->img.start);
+	mlx_destroy_image(g->mlx,g->img.goal);
+	mlx_destroy_image(g->mlx,g->img.collectable);
+	mlx_destroy_image(g->mlx,g->img.wall);
+	mlx_destroy_image(g->mlx,g->img.floor);
 	mlx_destroy_image(g->mlx, g->img.img);
+	mlx_destroy_window(g->mlx, g->win);
+	mlx_destroy_display(g->mlx);
+	free(g->mlx);
 }

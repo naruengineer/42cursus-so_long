@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 22:07:43 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 18:54:44 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/06 18:03:11 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,8 @@ static void	init_game_materials(t_game *g)
 			&tile_height, &tile_width);
 }
 
-void	init_game(t_game *g, t_mapinfo *info, t_dfs *dfs)
+void	init_game(t_game *g)
 {
-	g->map = info->map;
-	g->height = info->height;
-	g->width = info->width;
-	g->total_collect = dfs->total_c;
 	g->collected = 0;
 	g->count_move = 0;
 	g->mlx = mlx_init();
