@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 21:27:50 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 17:01:58 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/07 17:47:48 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,11 @@ typedef struct s_game
 }				t_game;
 
 int				main(int argc, char **argv);
+void			check_file_format(char *filename);
+int				close_window(t_game *g);
+void 			error_and_exit(char *error_script);
 void			free_map_and_exit(char **map, char *error_script);
 void			free_map(char **map);
-int				close_window(t_game *g);
 void			free_mlx(t_game *g);
 void			print_map(char **map);
 char			**load_map(char *filename);

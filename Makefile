@@ -6,7 +6,7 @@
 #    By: nando <nando@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 21:17:18 by nando             #+#    #+#              #
-#    Updated: 2025/05/07 16:44:43 by nando            ###   ########.fr        #
+#    Updated: 2025/05/07 17:48:53 by nando            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ SRCS =  \
 		game/handle_expose.c \
 		game/init_game.c \
 		game/running_game.c \
+		utils/check_file.c \
 		utils/close_window.c \
+		utils/error_and_exit.c \
 		utils/free.c 
 
 OBJS = $(SRCS:.c=.o)

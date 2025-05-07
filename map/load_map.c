@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 23:41:36 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 15:04:08 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/07 17:50:41 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ static int	count_line(char *filename)
 	int		count;
 	char	*line;
 
-	count = 0;
+	if(!filename)
+		exit(EXIT_FAILURE);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-	{
-		ft_printf("Error : open failed\n");
-		exit(EXIT_FAILURE);
-	}
+		error_and_exit("Error : open failed\n");
 	line = get_next_line(fd);
+	count = 0;
 	while (line)
 	{
 		count++;
@@ -36,12 +35,31 @@ static int	count_line(char *filename)
 	return (count);
 }
 
+static void fill_a_map(char **map, int fd, int line_count)
+{	
+	int i;
+
+	i = 0;
+	if(!map)
+		exit(EXIT_FAILURE);
+	while (i < line_count)
+	{
+		map[i] = get_next_line(fd);
+		if (!map[i])
+			free_map_and_exit(map, "Error : get_next_line failed\n");
+		i++;
+	}
+	map[i] = NULL;
+}
+
 static void	remove_line_break(char **map)
 {
 	int		i;
 	size_t	len;
-
+	
 	i = 0;
+	if(!map)
+		exit(EXIT_FAILURE);
 	while (map[i])
 	{
 		len = ft_strlen(map[i]);
@@ -53,27 +71,18 @@ static void	remove_line_break(char **map)
 
 char	**load_map(char *filename)
 {
-	int		line_count;
 	char	**map;
 	int		fd;
-	int		i;
+	int		line_count;
 
-	i = 0;
 	line_count = count_line(filename);
 	map = malloc(sizeof(char *) * (line_count + 1));
 	if (!map)
-		free_map_and_exit(map, "Error : malloc failed\n");
+		error_and_exit("Error : malloc failed\n");
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		free_map_and_exit(map, "Error : open failed\n");
-	while (i < line_count)
-	{
-		map[i] = get_next_line(fd);
-		if (!map[i])
-			free_map_and_exit(map, "Error : get_next_line failed\n");
-		i++;
-	}
-	map[i] = NULL;
+	fill_a_map(map, fd, line_count);
 	remove_line_break(map);
 	close(fd);
 	return (map);
