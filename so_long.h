@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 21:27:50 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 17:47:48 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 22:22:25 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,54 +47,59 @@
 
 typedef struct s_data
 {
-	void		*img;
-	char		*address;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	void		*player;
-	void		*start;
-	void		*goal;
-	void		*collectable;
-	void		*wall;
-	void		*floor;
-}				t_data;
+	void	*img;
+	char	*address;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	void	*player;
+	void	*start;
+	void	*goal;
+	void	*collectable;
+	void	*wall;
+	void	*floor;
+}			t_data;
 
 typedef struct s_game
 {
-	void		*mlx;
-	void		*win;
-	t_data		img;
-	char		**map;
-	char		*visited;
-	int			found_goal;
-	int			collected;
-	int			total_collect;
-	int			player_x;
-	int			player_y;
-	int			height;
-	int			width;
-	int			count_move;
-}				t_game;
+	void	*mlx;
+	void	*win;
+	t_data	img;
+	char	**map;
+	char	*visited;
+	int		found_goal;
+	int		collected;
+	int		total_collect;
+	int		player_x;
+	int		player_y;
+	int		new_x;
+	int		new_y;
+	size_t	height;
+	size_t	width;
+	int		tile_size;
+	int		count_move;
+}			t_game;
 
-int				main(int argc, char **argv);
-void			check_file_format(char *filename);
-int				close_window(t_game *g);
-void 			error_and_exit(char *error_script);
-void			free_map_and_exit(char **map, char *error_script);
-void			free_map(char **map);
-void			free_mlx(t_game *g);
-void			print_map(char **map);
-char			**load_map(char *filename);
-void			validate_map(t_game *game);
-int				check_charset(t_game *game);
-int				check_char_counts(t_game *game);
-int				check_wall(t_game *game);
-int				path_exists(t_game *game);
-void			init_game(t_game *g);
-void			running_game(t_game *g);
-int				handle_press_key(int keycode, t_game *g);
-int 			handle_expose(t_game *g);
-void			draw_map(t_game *g);
+int			main(int argc, char **argv);
+void		check_file_format(char *filename);
+int			close_window(t_game *g);
+void		error_and_exit(char *error_script);
+void		free_map_and_exit(char **map, char *error_script);
+void		free_map(char **map);
+void		free_mlx(t_game *g);
+void		load_map(t_game *g, char *filename);
+void		validate_map(t_game *game);
+int			check_rectangular(t_game *g);
+int			check_charset(t_game *game);
+int			check_char_counts(t_game *game);
+int			check_wall(t_game *game);
+int			path_exists(t_game *game);
+void		init_game(t_game *g);
+void		running_game(t_game *g);
+void		get_collectable(t_game *g);
+void		get_goal(t_game *g);
+int			handle_press_key(int keycode, t_game *g);
+int			handle_expose(t_game *g);
+void		draw_map(t_game *g);
 
 #endif

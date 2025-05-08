@@ -6,29 +6,38 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 16:21:42 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 15:03:58 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 21:38:53 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	check_charset(t_game *game)
+int	check_rectangular(t_game *g)
 {
-	char	**map;
+	g->width = ft_strlen(g->map[0]);
+	g->height = 1;
+	while (g->map[g->height])
+	{
+		if (g->width != ft_strlen(g->map[g->height]))
+			return (NG);
+		g->height++;
+	}
+	return (OK);
+}
+
+int	check_charset(t_game *g)
+{
 	int		i;
 	int		j;
 	char	c;
 
-	map = game->map;
-	if (map == NULL || map[0] == NULL)
-		return (NG);
 	i = 0;
-	while (map[i])
+	while (g->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (g->map[i][j])
 		{
-			c = map[i][j];
+			c = g->map[i][j];
 			if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P')
 				return (NG);
 			j++;
@@ -38,20 +47,20 @@ int	check_charset(t_game *game)
 	return (OK);
 }
 
-static int	count_in_map(char **map, char target)
+static int	count_in_map(t_game *g, char target)
 {
-	int	i;
-	int	j;
-	int	count;
+	int		i;
+	int		j;
+	size_t	count;
 
-	count = 0;
 	i = 0;
-	while (map[i])
+	count = 0;
+	while (g->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (g->map[i][j])
 		{
-			if (map[i][j] == target)
+			if (g->map[i][j] == target)
 				count++;
 			j++;
 		}
@@ -60,45 +69,35 @@ static int	count_in_map(char **map, char target)
 	return (count);
 }
 
-int	check_char_counts(t_game *game)
+int	check_char_counts(t_game *g)
 {
-	char	**map;
-	int		p_count;
-	int		e_count;
-	int		c_count;
+	size_t	p_count;
+	size_t	e_count;
+	size_t	c_count;
 
-	map = game->map;
-	if (map == NULL || map[0] == NULL)
+	p_count = count_in_map(g, 'P');
+	e_count = count_in_map(g, 'E');
+	c_count = count_in_map(g, 'C');
+	if (p_count != 1 || e_count != 1 || c_count < 1)
 		return (NG);
-	p_count = count_in_map(map, 'P');
-	e_count = count_in_map(map, 'E');
-	c_count = count_in_map(map, 'C');
-	if (p_count == 1 && e_count == 1 && c_count >= 1)
-		return (OK);
-	return (NG);
+	return (OK);
 }
 
-int	check_wall(t_game *game)
+int	check_wall(t_game *g)
 {
-	char	**map;
-	int		m_height;
-	int		m_width;
-	int		i;
+	size_t	i;
 
-	map = game->map;
 	i = 0;
-	m_height = game->height;
-	m_width = game->width;
-	while (i < m_width)
+	while (i < g->width)
 	{
-		if (map[0][i] != '1' || map[m_height - 1][i] != '1')
+		if (g->map[0][i] != '1' || g->map[g->height - 1][i] != '1')
 			return (NG);
 		i++;
 	}
 	i = 1;
-	while (i < m_height)
+	while (i < g->height)
 	{
-		if (map[i][0] != '1' || map[i][m_width - 1] != '1')
+		if (g->map[i][0] != '1' || g->map[i][g->width - 1] != '1')
 			return (NG);
 		i++;
 	}

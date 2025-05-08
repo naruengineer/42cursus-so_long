@@ -6,101 +6,82 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 16:37:34 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 15:32:53 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 21:40:18 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-static void	find_start(t_game *game ,int *start_row, int *start_column)
+static void	init_dfs(t_game *g)
 {
-	int	i;
-	int	j;
+	size_t	y;
+	size_t	x;
 
-	i = 0;
-	while (i < game->height)
+	g->found_goal = 0;
+	g->collected = 0;
+	g->total_collect = 0;
+	y = 0;
+	while (y < g->height)
 	{
-		j = 0;
-		while (j < game->width)
+		x = 0;
+		while (x < g->width)
 		{
-			if (game->map[i][j] == 'P')
-			{
-				*start_row = i;
-				*start_column = j;
-				return ;
-			}
-			j++;
+			if (g->map[y][x] == 'C')
+				g->total_collect++;
+			x++;
 		}
-		i++;
+		y++;
 	}
-	*start_row = -1;
-	*start_column = -1;
-	return ;
+	g->visited = calloc(g->height * g->width, sizeof *g->visited);
+	if (!g->visited)
+		free_map_and_exit(g->map, "Error : calloc failed");
 }
 
-static void	init_dfs(t_game *game)
+static int	check_can_visit(t_game *g, size_t y, size_t x, int *index)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	game->found_goal = 0;
-	game->collected = 0;
-	game->total_collect = 0;
-	while (i < game->height)
-	{
-		j = 0;
-		while (j < game->width)
-		{
-			if (game->map[i][j] == 'C')
-				game->total_collect++;
-			j++;
-		}
-		i++;
-	}
-	game->visited = calloc(game->height * game->width,
-			sizeof * game->visited);
-	if (!game->visited)
-		free_map_and_exit(game->map, "Error : memory allocation failed");
-}
-
-static void	running_dfs(t_game *game, int row, int column)
-{
-	int			index;
-
-	if (row < 0 || row >= game->height || column < 0 || column >= game->width)
-		return ;
-	if (game->map[row][column] == '1')
-		return ;
-	index = row * game->width + column;
-	if (game->visited[index])
-		return ;
-	game->visited[index] = 1;
-	if (game->map[row][column] == 'C')
-		game->collected++;
-	if (game->map[row][column] == 'E')
-		game->found_goal = 1;
-	running_dfs(game, row + 1, column);
-	running_dfs(game, row - 1, column);
-	running_dfs(game, row, column + 1);
-	running_dfs(game, row, column - 1);
-}
-
-int	path_exists(t_game *game)
-{
-	int		start_row;
-	int		start_column;
-
-	find_start(game, &start_row, &start_column);
-	if (start_row < 0 || start_column < 0)
+	if (y >= g->height || x >= g->width)
 		return (NG);
-	init_dfs(game);
-	running_dfs(game, start_row, start_column);
-	if (game->found_goal == 1 && game->collected == game->total_collect)
+	if (g->map[y][x] == '1')
+		return (NG);
+	*index = y * g->width + x;
+	if (g->visited[*index])
+		return (NG);
+	return (OK);
+}
+
+static void	running_dfs(t_game *g, size_t y, size_t x)
+{
+	int	index;
+
+	if (check_can_visit(g, y, x, &index) == NG)
+		return ;
+	g->visited[index] = 1;
+	if (g->map[y][x] == 'C')
+		g->collected++;
+	if (g->map[y][x] == 'E')
+		g->found_goal = 1;
+	running_dfs(g, y + 1, x);
+	running_dfs(g, y - 1, x);
+	running_dfs(g, y, x + 1);
+	running_dfs(g, y, x - 1);
+}
+
+static int	check_path(t_game *g)
+{
+	if (g->found_goal == 1 && g->collected == g->total_collect)
 	{
-		free(game->visited);
+		free(g->visited);
 		return (OK);
 	}
-	free(game->visited);
+	free(g->visited);
+	return (NG);
+}
+
+int	path_exists(t_game *g)
+{
+	init_dfs(g);
+	running_dfs(g, g->player_y, g->player_x);
+	if (check_path(g))
+		return (OK);
 	return (NG);
 }

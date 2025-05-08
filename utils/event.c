@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_map.c                                        :+:      :+:    :+:   */
+/*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 16:30:04 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 19:36:13 by nando            ###   ########.fr       */
+/*   Created: 2025/05/08 22:15:28 by nando             #+#    #+#             */
+/*   Updated: 2025/05/08 22:22:39 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	print_map(char **map)
+void	get_collectable(t_game *g)
 {
-	int	i;
-	int	j;
+	g->collected++;
+	ft_printf("Yay, you got a bone!\n");
+	if (g->collected == g->total_collect)
+		ft_printf("Now you have all the bones. Let's go home.\n");
+	g->map[g->new_y][g->new_x] = '0';
+}
 
-	i = 0;
-	ft_printf("[print_map]\n");
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			write(1, &map[i][j], 1);
-			j++;
-		}
-		write(1, "\n", 1);
-		i++;
-	}
-	write(1, "\n", 1);
+void	get_goal(t_game *g)
+{
+	ft_printf("Welcome back!\nThank you for completing this adventure.\n");
+	close_window(g);
 }

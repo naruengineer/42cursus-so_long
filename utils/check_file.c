@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:05:10 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 17:11:23 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 21:11:07 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	file_format_error(void)
 {
-	ft_putstr_fd("Error: Invalid file format.\n", 2);
+	perror("Error: invalid file format.\n");
 	exit(EXIT_FAILURE);
 }
 
@@ -23,6 +23,8 @@ void	check_file_format(char *filename)
 	int	filename_len;
 	int	result;
 
+	if(!filename)
+		error_and_exit("Error : map_file is NULL");
 	filename_len = ft_strlen(filename);
 	if (filename_len < 4)
 		file_format_error();

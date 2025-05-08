@@ -6,23 +6,21 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:12:06 by nando             #+#    #+#             */
-/*   Updated: 2025/05/03 19:24:02 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 21:56:10 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-#define TILE_SIZE 64
-
 static void	draw_one_tile(t_game *g, void *tile, int x, int y)
 {
-	mlx_put_image_to_window(g->mlx, g->win, tile, x * TILE_SIZE, y * TILE_SIZE);
+	mlx_put_image_to_window(g->mlx, g->win, tile, x * g->tile_size, y * g->tile_size);
 }
 
 static void	draw_wall_floor(t_game *g)
 {
-	int	x;
-	int	y;
+	size_t	x;
+	size_t	y;
 
 	y = 0;
 	while (y < g->height)
@@ -42,8 +40,8 @@ static void	draw_wall_floor(t_game *g)
 
 static void	draw_materials(t_game *g)
 {
-	int	x;
-	int	y;
+	size_t	x;
+	size_t	y;
 
 	y = 0;
 	while (y < g->height)

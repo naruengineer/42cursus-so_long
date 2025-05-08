@@ -6,13 +6,13 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 16:41:34 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 17:01:51 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 17:42:29 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int  handle_expose(t_game *g)
+int	handle_expose(t_game *g)
 {
 	mlx_clear_window(g->mlx, g->win);
 	draw_map(g);

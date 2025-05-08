@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 19:25:26 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 16:29:58 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 22:24:55 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,34 @@ static void	get_delta(int keycode, int *dx, int *dy)
 		*dx = 1;
 }
 
-static void	get_collectable(t_game *g, int new_x, int new_y)
+static int	check_dest_and_execute_events(t_game *g, char cell)
 {
-	g->collected++;
-	ft_printf("Yay, you got a bone!\n");
-	if (g->collected == g->total_collect)
-		ft_printf("Now you have all the bones. Let's go home.\n");
-	g->map[new_y][new_x] = '0';
+	if (cell == '1')
+		return (NG);
+	if (cell == 'E' && g->collected != g->total_collect)
+	{
+		ft_printf("Collect all the bones!\n");
+		return (NG);
+	}
+	g->count_move++;
+	ft_printf("[move : %d]\n", g->count_move);
+	if (cell == 'C')
+		get_collectable(g);
+	else if (cell == 'E' && g->collected == g->total_collect)
+		get_goal(g);
+	return (OK);
 }
 
-static void	get_goal(t_game *g)
-{
-	ft_printf("You’re finally home!!!\nThank you for completing this adventure.\n");
-	close_window(g);
-}
-
-static void	update_tiles(t_game *g, int new_x, int new_y)
+static void	update_tiles(t_game *g)
 {
 	g->map[g->player_y][g->player_x] = '0';
-	g->player_x = new_x;
-	g->player_y = new_y;
+	g->player_x = g->new_x;
+	g->player_y = g->new_y;
 	g->map[g->player_y][g->player_x] = 'P';
 }
 
 int	handle_press_key(int keycode, t_game *g)
 {
-	int		new_x;
-	int		new_y;
 	int		dx;
 	int		dy;
 	char	cell;
@@ -60,18 +61,12 @@ int	handle_press_key(int keycode, t_game *g)
 	if (keycode == ESC_KEY)
 		return (close_window(g));
 	get_delta(keycode, &dx, &dy);
-	new_x = g->player_x + dx;
-	new_y = g->player_y + dy;
-	cell = g->map[new_y][new_x];
-	if (cell == '1' || (cell == 'E' && g->collected != g->total_collect))
+	g->new_x = g->player_x + dx;
+	g->new_y = g->player_y + dy;
+	cell = g->map[g->new_y][g->new_x];
+	if (check_dest_and_execute_events(g, cell) == NG)
 		return (0);
-	g->count_move++;
-	ft_printf("[move : %d]\n", g->count_move);
-	if (cell == 'C')
-		get_collectable(g, new_x, new_y);
-	else if (cell == 'E' && g->collected == g->total_collect)
-		get_goal(g);
-	update_tiles(g, new_x, new_y);
+	update_tiles(g);
 	draw_map(g);
 	return (0);
 }

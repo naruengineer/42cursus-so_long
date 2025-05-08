@@ -6,14 +6,14 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:34:15 by nando             #+#    #+#             */
-/*   Updated: 2025/05/07 17:48:37 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 17:42:51 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void error_and_exit(char *error_script)
+void	error_and_exit(char *error_script)
 {
-	perror(error_script);	
+	perror(error_script);
 	exit(EXIT_FAILURE);
 }
