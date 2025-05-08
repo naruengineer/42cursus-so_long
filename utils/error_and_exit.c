@@ -6,7 +6,7 @@
 /*   By: nando <nando@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:34:15 by nando             #+#    #+#             */
-/*   Updated: 2025/05/08 17:42:51 by nando            ###   ########.fr       */
+/*   Updated: 2025/05/08 22:34:01 by nando            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	error_and_exit(char *error_script)
 {
-	perror(error_script);
+	ft_putstr_fd(error_script, 2);
 	exit(EXIT_FAILURE);
 }
